@@ -2,7 +2,9 @@ const path = require('path')
 const fs = require('fs')
 const dotenv = require('dotenv')
 
-dotenv.config()
+dotenv.config({
+  path: path.resolve(__dirname, `../env/.env.${process.env.NODE_ENV}`)
+})
 
 const PRIVATE_KEY = fs.readFileSync(path.resolve(__dirname, './keys/private.key'))
 const PUBLIC_KEY = fs.readFileSync(path.resolve(__dirname, './keys/public.key'))
