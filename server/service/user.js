@@ -8,8 +8,16 @@ class UserService {
   }
 
   async getUserByName (name) {
-    const users = await User.findOne({ where: { name } })
-    return users
+    const user = await User.findOne({ where: { name } })
+    return user
+  }
+
+  async getUserById (id) {
+    const user = await User.findOne({ 
+      where: { id },
+      attributes: ['id', 'name', 'avatar', 'role'],
+    })
+    return user
   }
 }
 

@@ -10,5 +10,8 @@ lerna-debug.log*
 # Dependency directories
 node_modules/
 
-# env
+# env 
 .env
+
+# 公钥和私钥
+keys/

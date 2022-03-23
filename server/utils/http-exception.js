@@ -12,11 +12,21 @@ class ParameterException extends HttpException {
     super()
     this.code = 400
     this.message = message
-    this.errorCode = errorCode || 10000
+    this.errorCode = errorCode
+  }
+}
+
+class UnauthorizedException extends HttpException {
+  constructor (message = '用户未登陆', errorCode = 10001) {
+    super()
+    this.code = 401
+    this.message = message
+    this.errorCode = errorCode
   }
 }
 
 module.exports = {
   HttpException,
-  ParameterException
+  ParameterException,
+  UnauthorizedException
 }

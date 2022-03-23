@@ -6,6 +6,12 @@ class UserController {
     const result = await service.create(user)
     ctx.body = result
   }
+
+  async getUserInfo(ctx) {
+    const user = ctx.user
+    const result = await service.getUserById(user.id)
+    ctx.body = result
+  }
 }
 
 module.exports = new UserController()
