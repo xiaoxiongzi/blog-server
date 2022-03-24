@@ -5,12 +5,16 @@ const { md5Password } = require('../utils/index')
 class User extends Model {}
 
 User.init({
-  id: {
+  userId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
+    field: 'user_id'
   },
-  name: DataTypes.STRING,
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   avatar: {
     type: DataTypes.STRING,
     defaultValue: ''
@@ -19,7 +23,8 @@ User.init({
     type: DataTypes.STRING,
     set(val) {
       this.setDataValue('password', md5Password(val))
-    }
+    },
+    allowNull: false
   },
   role: {
     type: DataTypes.ENUM('admin', 'user'),

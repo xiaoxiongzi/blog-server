@@ -12,10 +12,10 @@ class UserService {
     return user
   }
 
-  async getUserById (id) {
+  async getUserById (userId) {
     const user = await User.findOne({ 
-      where: { id },
-      attributes: ['id', 'name', 'avatar', 'role'],
+      where: { userId },
+      attributes: ['userId', 'name', 'avatar', 'role'],
     })
     return user
   }
