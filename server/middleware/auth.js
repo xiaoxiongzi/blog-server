@@ -30,16 +30,11 @@ const verifyAuth = async (ctx, next) => {
     throw error
   }
   const token = authorization.replace('Bearer ', '')
-  try {
-    const result = jwt.verify(token, PUBLIC_KEY, {
-      algorithms: ['RS256']
-    })
-    ctx.user = result
-    await next()
-  } catch (err) {
-    const error = new UnauthorizedException()
-    throw error
-  }
+  const result = jwt.verify(token, PUBLIC_KEY, {
+    algorithms: ['RS256']
+  })
+  ctx.user = result
+  await next()
 }
 
 
