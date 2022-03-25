@@ -15,9 +15,7 @@ const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_ROOT, MYSQL_PASSWORD, {
   timezone: '+08:00',
   define: {
     paranoid: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-    deletedAt: 'deleted_at',
+    timestamps: true,
     underscored: true
   },
   query: {

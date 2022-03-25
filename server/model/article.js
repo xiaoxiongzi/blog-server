@@ -34,12 +34,16 @@ Article.init({
   commentCount: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
-    comment: '评论数'
+    comment: '评论数',
+    field: 'comment_count'
   }
 }, {
   sequelize,
   timestamps: true,
-  tableName: 'article'
+  tableName: 'article',
+  defaultScope: {
+    attributes: { exclude: ['deletedAt'] }
+  }
 })
 
 module.exports = Article
