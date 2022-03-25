@@ -1,9 +1,13 @@
 const { HttpException } = require('../utils/http-exception')
+const { IS_PROD } = require('../config')
 
 const catchError = async (ctx, next) => {
   try {
     await next()
   } catch (error) {
+    if (!IS_PROD) {
+      console.log(error)
+    }
     // 已知错误
     if (error instanceof HttpException) {
       const { message, errorCode, status } = error

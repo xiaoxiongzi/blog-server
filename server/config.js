@@ -8,6 +8,7 @@ dotenv.config({
 
 const PRIVATE_KEY = fs.readFileSync(path.resolve(__dirname, './keys/private.key'))
 const PUBLIC_KEY = fs.readFileSync(path.resolve(__dirname, './keys/public.key'))
+const IS_PROD = process.env.NODE_ENV === 'production'
 
 const {
   APP_PORT,
@@ -26,5 +27,6 @@ module.exports = {
   MYSQL_ROOT,
   MYSQL_PASSWORD,
   PRIVATE_KEY,
-  PUBLIC_KEY
+  PUBLIC_KEY,
+  IS_PROD
 }
