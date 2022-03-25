@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon ./server/main.js",
+    "start": "cross-env NODE_ENV=development nodemon --inspect ./server/main.js",
     "start:prd": "cross-env NODE_ENV=production nodemon ./server/main.js"
   },
   "keywords": [],
