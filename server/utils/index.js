@@ -6,6 +6,15 @@ const md5Password = (password) => {
   return result
 }
 
+function formatListAndCount(data) {
+  const { count, rows } = data
+  return {
+    total: count,
+    list: rows
+  }
+}
+
 module.exports = {
-  md5Password
+  md5Password,
+  formatListAndCount
 }

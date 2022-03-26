@@ -16,7 +16,10 @@ const sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_ROOT, MYSQL_PASSWORD, {
   define: {
     paranoid: true,
     timestamps: true,
-    underscored: true
+    underscored: true,
+    defaultScope: {
+      attributes: { exclude: ['deletedAt'] }
+    }
   },
   query: {
     raw: true

@@ -17,7 +17,7 @@ class ArticleService {
   }
 
   async list(offset, limit) {
-    const result = await Article.findAll({ 
+    const result = await Article.findAndCountAll({ 
       offset, 
       limit,
       attributes: { exclude: ['content'] }

@@ -1,20 +1,14 @@
 const { Op } = require('sequelize')
 const service = require('../service/article')
+const { formatListAndCount } = require('../utils')
 const { ParameterException } = require('../utils/http-exception')
 const { SuccessResponse } = require('../utils/response')
-
-async function verifyTitle(where) {
-  const result = await service.find(where)
-  if (result) {
-    const error = new ParameterException('文章标题已存在')
-    throw error
-  }
-}
+const { checkRepeat } = require('../utils/service')
 class ArticleController {
   async create (ctx) {
     const article = ctx.request.body
     const { title } = article
-    await verifyTitle({ title })
+    await checkRepeat(service, { title }, '文章标题已存在')
     const { articleId } = await service.create(article)
     ctx.body = new SuccessResponse({ articleId })
   }
@@ -29,7 +23,8 @@ class ArticleController {
     const { articleId } = ctx.params
     const article = ctx.request.body
     const { title } = article
-    await verifyTitle({ title, articleId: { [Op.not]: articleId } })
+    const where = { title, articleId: { [Op.not]: articleId } }
+    await checkRepeat(service, where, '文章标题已存在')
     await service.update(articleId, article)
     ctx.body = new SuccessResponse()
   }
@@ -37,7 +32,7 @@ class ArticleController {
   async list (ctx) {
     const { offset = 0, size = 10 } = ctx.request.query
     const result = await service.list(Number(offset), Number(size))
-    ctx.body = new SuccessResponse({ list: result })
+    ctx.body = new SuccessResponse(formatListAndCount(result))
   }
 
   async detail (ctx) {

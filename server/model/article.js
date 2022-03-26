@@ -39,11 +39,7 @@ Article.init({
   }
 }, {
   sequelize,
-  timestamps: true,
   tableName: 'article',
-  defaultScope: {
-    attributes: { exclude: ['deletedAt'] }
-  }
 })
 
 module.exports = Article
