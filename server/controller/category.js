@@ -9,7 +9,7 @@ class CategoryController {
   async create (ctx) {
     const category = ctx.request.body
     const { name } = category
-    await checkRepeat(service, { name }, '标签名已存在')
+    await checkRepeat(service, { name }, '分类名已存在')
     const { categoryId } = await service.create(category)
     ctx.body = new SuccessResponse({ categoryId })
   }
@@ -25,7 +25,7 @@ class CategoryController {
     const category = ctx.request.body
     const { name } = category
     const where = { name, categoryId: { [Op.not]: categoryId } }
-    await checkRepeat(service, where, '标签名已存在')
+    await checkRepeat(service, where, '分类名已存在')
     await service.update(categoryId, category)
     ctx.body = new SuccessResponse()
   }
@@ -39,7 +39,7 @@ class CategoryController {
     const { categoryId } = ctx.params
     const result = await service.find({ categoryId })
     if (!result) {
-      const error = new ParameterException('标签不存在')
+      const error = new ParameterException('分类不存在')
       throw error
     }
     ctx.body = new SuccessResponse({ ...result })
