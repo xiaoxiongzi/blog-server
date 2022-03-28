@@ -16,3 +16,5 @@ env/*
 
 # 公钥和私钥
 keys/
+
+.DS_Store

@@ -1,4 +1,29 @@
+const { col } = require('sequelize')
 const Article = require('../model/article')
+const Category = require('../model/category')
+
+// https://stackoverflow.com/questions/50148491/how-to-get-join-data-result-without-prefix-table-name-in-sequelize-orm/52922156#52922156
+const createQueryOption = (excludeContent) => {
+  return {
+    attributes: {
+      ...(excludeContent ? {
+        exclude: ['content']
+      } : {}),
+      include: [
+        [col('category.name'), 'categoryName']
+      ]
+    },
+    include: [
+      {
+        model: Category,
+        as: 'category',
+        required: false,
+        attributes: []
+      }
+    ],
+    raw: true
+  }
+}
 
 class ArticleService {
   async create (article) {
@@ -20,7 +45,7 @@ class ArticleService {
     const result = await Article.findAndCountAll({ 
       offset, 
       limit,
-      attributes: { exclude: ['content'] }
+      ...createQueryOption(true)
     })
     return result
   }
@@ -31,7 +56,7 @@ class ArticleService {
   }
 
   async find(where) {
-    const result = await Article.findOne({ where })
+    const result = await Article.findOne({ where, ...createQueryOption(false)  })
     return result
   }
 } 
